@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Example for button background color -->
+    <item android:state_pressed="true" android:color="#FF5722" /> <!-- Pressed state -->
+    <item android:state_enabled="false" android:color="#9E9E9E" /> <!-- Disabled state -->
+    <item android:color="#6200EE" /> <!-- Default state -->
+</selector>
