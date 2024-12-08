@@ -1,24 +1,17 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
+        google()  // Add Google repository
+        mavenCentral()  // Add Maven Central repository
+        gradlePluginPortal()  // Gradle Plugin Portal for Gradle plugins
     }
 }
+
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
+        google()  // Add Google repository
+        mavenCentral()  // Add Maven Central repository
     }
 }
 
 rootProject.name = "SignIn_SignUp"
-include(":app")
- 
+include(":app")  // Include the app module

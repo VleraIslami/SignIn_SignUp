@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme -->
-    <style name="Theme.Signin_Signup" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SignIn_SignUp." parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Reference colors from colors.xml -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
