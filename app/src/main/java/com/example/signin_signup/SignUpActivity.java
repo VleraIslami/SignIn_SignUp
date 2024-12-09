@@ -1,5 +1,7 @@
 package com.example.signin_signup;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -11,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText edtName, edtEmail, edtPassword;
-    private Button btnSignUp;
+    private Button btnSignUp;  // Add the forgot password button
     private SQLiteHelper dbHelper;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
         dbHelper = new SQLiteHelper(this);
 
+        // Handling SignUp button click
         btnSignUp.setOnClickListener(v -> {
             String name = edtName.getText().toString().trim();
             String email = edtEmail.getText().toString().trim();
@@ -56,6 +60,9 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error signing up. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Handling Forgot Password button click to navigate to ForgotPasswordActivity
+
     }
 
     private boolean isValidPassword(String password) {

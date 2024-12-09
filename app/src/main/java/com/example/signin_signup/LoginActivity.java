@@ -3,6 +3,7 @@ package com.example.signin_signup;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.signin_signup.SQLiteHelper;
+import com.example.signin_signup.SignUpActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,9 +47,12 @@ public class LoginActivity extends AppCompatActivity {
 
         // Navigate to Sign Up screen
         tvSignUp.setOnClickListener(v -> {
+            Log.d("LoginActivity", "Sign Up button clicked");
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
+
+
 
         // Navigate to Forgot Password screen
         tvForgotPassword.setOnClickListener(v -> {
