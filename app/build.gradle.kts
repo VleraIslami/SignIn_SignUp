@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
+
+
+// Correct way to apply the Google services plugin
 }
+
 
 android {
     namespace = "com.example.signin_signup"
@@ -36,9 +41,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21")  // Prefer JDK8 variant if needed
 
     // Firebase dependencies
-    implementation("com.google.firebase:firebase-auth:21.0.0")
     implementation("com.google.firebase:firebase-firestore:24.3.0")
+    implementation("com.google.firebase:firebase-auth:21.0.0")
 
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
     // Core Android dependencies
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -48,6 +55,8 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.8.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("com.google.android.material:material:1.9.0")
+
+
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
@@ -62,7 +71,5 @@ configurations.all {
     }
 }
 
-
-// Exclude conflicting Kotlin dependencies to avoid duplication
 
 
