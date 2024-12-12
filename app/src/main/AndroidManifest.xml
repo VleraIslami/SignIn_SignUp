@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.SignIn_SignUp">
 
+        <!-- MainActivity is set as the launcher activity -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -22,21 +23,21 @@
             </intent-filter>
         </activity>
 
-        <!-- SignIn Activity -->
+        <!-- LoginActivity is used only if the user is not logged in -->
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.SignIn_SignUp"
             android:exported="false" />
 
-        <!-- SignUp Activity -->
+        <!-- SignUpActivity -->
         <activity
             android:name=".SignUpActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.SignIn_SignUp"
             android:exported="false" />
 
-        <!-- ForgotPassword Activity (Add this) -->
+        <!-- ForgotPassword Activity -->
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="@string/app_name"
