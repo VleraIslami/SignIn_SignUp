@@ -21,8 +21,19 @@
         android:minHeight="200dp" />
 
     <Button
-        android:id="@+id/btnSaveNote"
-        android:layout_width="match_parent"
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Note" />
+        android:text="Save"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Back button -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>

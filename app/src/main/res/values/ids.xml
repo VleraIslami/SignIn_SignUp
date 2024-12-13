@@ -5,4 +5,5 @@
     <item name="progressBar" type="id" />
     <item name="btnGoToAddOrEditNote" type="id" />
     <item name="btnGoToSignUp" type="id" />
+    <item name="btnSave" type="id" />
 </resources>

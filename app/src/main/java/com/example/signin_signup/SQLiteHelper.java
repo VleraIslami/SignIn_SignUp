@@ -1,5 +1,6 @@
 package com.example.signin_signup;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -51,29 +52,27 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Add the missing methods
-
     public boolean isEmailRegistered(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM users WHERE email = ?";
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{email});
         boolean isRegistered = cursor.getCount() > 0;
         cursor.close();
         return isRegistered;
     }
 
+
     public boolean isUserValid(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + " = ? AND " + COLUMN_USER_PASSWORD + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{email, password});
         boolean isValid = cursor.getCount() > 0;
         cursor.close();
         return isValid;
     }
-
     public void deleteNote(int noteId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM notes WHERE note_id = ?";
+        String query = "DELETE FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTE_ID + " = ?";
         db.execSQL(query, new Object[]{noteId});
     }
 
@@ -88,20 +87,62 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+
     public Cursor getAllNotes() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM notes"; // Replace with your actual table and columns if needed
-        return db.rawQuery(query, null); // Return the result as a Cursor
+        String query = "SELECT * FROM " + TABLE_NOTES;
+        return db.rawQuery(query, null);
     }
+
 
     public void addSampleNotes() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("title", "Sample Note");
-        values.put("content", "This is a sample note.");
-        db.insert("notes", null, values);
+        values.put(COLUMN_NOTE_TITLE, "Sample Note");
+        values.put(COLUMN_NOTE_CONTENT, "This is a sample note.");
+        db.insert(TABLE_NOTES, null, values);
         db.close();
     }
 
-    // Add any other helper methods if needed
+
+    public Note getNoteById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NOTES, new String[]{COLUMN_NOTE_ID, COLUMN_NOTE_TITLE, COLUMN_NOTE_CONTENT},
+                COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            @SuppressLint("Range") Note note = new Note(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT))
+            );
+            cursor.close();
+            db.close();
+            return note;
+        } else {
+            db.close();
+            return null;
+        }
+    }
+    public void addNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_TITLE, note.getTitle());
+        values.put(COLUMN_NOTE_CONTENT, note.getContent());
+
+        db.insert(TABLE_NOTES, null, values);
+        db.close();
+    }
+
+    public void updateNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_TITLE, note.getTitle());
+        values.put(COLUMN_NOTE_CONTENT, note.getContent());
+
+        db.update(TABLE_NOTES, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(note.getId())});
+        db.close();
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.signin_signup;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,7 @@ public class NotesAdapter extends ArrayAdapter<Note> {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_note, parent, false);
         }
 
-        Note note = notesList.get(position);
+        final Note note = notesList.get(position);
 
         TextView tvTitle = convertView.findViewById(R.id.tvNoteTitle);
         TextView tvContent = convertView.findViewById(R.id.tvNoteContent);
@@ -43,7 +42,7 @@ public class NotesAdapter extends ArrayAdapter<Note> {
         btnDelete.setOnClickListener(v -> {
             dbHelper.deleteNote(note.getId());
             notesList.remove(position);
-            notifyDataSetChanged();
+            notifyDataSetChanged(); // Refresh the list
         });
 
         return convertView;
