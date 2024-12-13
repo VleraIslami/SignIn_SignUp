@@ -2,7 +2,6 @@ package com.example.signin_signup;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -90,9 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign-in successful
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Redirect to MainActivity or Home screen
+                        // Navigate to LoginSuccessActivity after successful login
+                        Intent intent = new Intent(LoginActivity.this, LoginSuccessActivity.class);
                         startActivity(intent);
-                        finish();
+                        finish();  // Close the LoginActivity
                     } else {
                         // Sign-in failed
                         String error = task.getException() != null ? task.getException().getMessage() : "Login failed";
@@ -120,35 +120,5 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e("ForgotPassword", "Error: " + error);
                     }
                 });
-    }
-
-    // Check if the link is a sign-in link and verify it
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Uri uri = getIntent().getData(); // Get the URI from the Intent
-
-        if (uri != null) {
-            String uriString = uri.toString();
-            // You can log or process the URI string if needed
-            Log.d("LoginActivity", "URI: " + uriString);
-        } else {
-            // Handle the case when the Uri is null
-            Log.d("LoginActivity", "No URI found in the Intent");
-        }
-
-        // Check if the link is a sign-in link
-        String emailLink = getIntent().getData() != null ? getIntent().getData().toString() : "";
-        if (!emailLink.isEmpty() && mAuth.isSignInWithEmailLink(emailLink)) {
-            String email = edtEmail.getText().toString().trim(); // Get the email from the user
-            mAuth.signInWithEmailLink(email, emailLink)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Successfully signed in with email link", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Failed to sign in", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
     }
 }

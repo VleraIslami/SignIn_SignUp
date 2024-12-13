@@ -9,13 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-
-
-
-import android.util.Log;
-
-import java.util.Calendar;
-
 public class MainActivity extends AppCompatActivity {
 
     private TimeSetReceiver timeSetReceiver;
@@ -37,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         WorkManager.getInstance(this).enqueue(workRequest);  // Corrected API usage
 
-        // Redirect to LoginActivity
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        // Redirect to HomeActivity instead of LoginActivity
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
-        finish();
+        finish();  // Ensures MainActivity is not kept in the back stack
     }
 
     @Override

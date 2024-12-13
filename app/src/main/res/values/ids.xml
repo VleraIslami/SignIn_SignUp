@@ -3,4 +3,6 @@
     <item name="btnForgotPassword" type="id" />
     <item name="btnResetPassword" type="id" />
     <item name="progressBar" type="id" />
+    <item name="btnGoToAddOrEditNote" type="id" />
+    <item name="btnGoToSignUp" type="id" />
 </resources>
