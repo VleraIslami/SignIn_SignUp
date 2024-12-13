@@ -105,6 +105,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(id)},
                 null, null, null);
 
+
         if (cursor != null) {
             cursor.moveToFirst();
             @SuppressLint("Range") Note note = new Note(
