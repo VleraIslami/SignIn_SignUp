@@ -10,17 +10,16 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.SignIn_SignUp">
 
-        <!-- Remove the intent-filter from LoginActivity -->
+        <!-- LoginActivity -->
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.SignIn_SignUp"
-            android:launchMode="singleTop"
             android:exported="true">
-            <!-- No MAIN action here anymore -->
+            <!-- No MAIN action here -->
         </activity>
 
-        <!-- Make HomeActivity the launcher activity -->
+        <!-- HomeActivity (Launcher) -->
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
@@ -46,18 +45,25 @@
             android:theme="@style/Theme.SignIn_SignUp"
             android:exported="false" />
 
-        <!-- ForgotPassword Activity -->
+        <!-- ForgotPasswordActivity -->
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.SignIn_SignUp"
             android:exported="false" />
 
+        <!-- AddOrEditNoteActivity -->
         <activity
             android:name=".AddOrEditNoteActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.SignIn_SignUp"
-            android:exported="false" />
+            android:exported="true" />  <!-- Changed exported to true -->
 
+        <!-- ManageNotesActivity -->
+        <activity
+            android:name=".ManageNotesActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SignIn_SignUp"
+            android:exported="true" />
     </application>
 </manifest>

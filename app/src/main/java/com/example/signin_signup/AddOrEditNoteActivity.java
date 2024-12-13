@@ -2,6 +2,7 @@ package com.example.signin_signup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -11,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AddOrEditNoteActivity extends AppCompatActivity {
 
     private EditText edtTitle, edtContent;
-    private Button btnSave, btnBack;
+    private Button btnSave, btnBack, btnManageNotes;
     private SQLiteHelper dbHelper;
     private Note note;
 
@@ -24,6 +25,7 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
         edtContent = findViewById(R.id.edtContent);
         btnSave = findViewById(R.id.btnSave);
         btnBack = findViewById(R.id.btnBack);
+        btnManageNotes = findViewById(R.id.btnManageNotes);  // Initialize Manage Notes button
         dbHelper = new SQLiteHelper(this);
 
         // Check if we're editing an existing note
@@ -61,11 +63,28 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
 
         // Set onClickListener for Back button
         btnBack.setOnClickListener(v -> {
-            // Navigate back to ActivityHome
-            Intent homeIntent = new Intent(AddOrEditNoteActivity.this, HomeActivity.class);
-            startActivity(homeIntent);
-            finish();  // Close current activity so the user can't go back here
+            // Navigate back to the previous activity
+            finish(); // Close the current activity and return to the previous one in the stack
         });
+
+        // Set onClickListener for Manage Notes button
+        btnManageNotes.setOnClickListener(v -> {
+            // Log to verify if this part is being reached
+            Log.d("AddOrEditNoteActivity", "Manage Notes button clicked");
+
+            // Create an Intent to navigate to ManageNotesActivity
+            Intent manageNotesIntent = new Intent(AddOrEditNoteActivity.this, ManageNotesActivity.class);
+
+            // Optional: Use flags to ensure the activity starts cleanly
+            manageNotesIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            // Start the ManageNotesActivity
+            startActivity(manageNotesIntent);
+        });
+
+
+
+
     }
 
     // Method to show alert

@@ -61,7 +61,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return isRegistered;
     }
 
-
     public boolean isUserValid(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_EMAIL + " = ? AND " + COLUMN_USER_PASSWORD + " = ?";
@@ -70,12 +69,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         cursor.close();
         return isValid;
     }
+
+    // Delete a note
     public void deleteNote(int noteId) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NOTES + " WHERE " + COLUMN_NOTE_ID + " = ?";
         db.execSQL(query, new Object[]{noteId});
+        db.close();
     }
 
+    // Insert a new user (for registration purposes)
     public boolean insertUser(String name, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -84,27 +87,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_PASSWORD, password);
 
         long result = db.insert(TABLE_USERS, null, values);
+        db.close();
         return result != -1;
     }
 
-
+    // Get all notes
     public Cursor getAllNotes() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NOTES;
         return db.rawQuery(query, null);
     }
 
-
-    public void addSampleNotes() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NOTE_TITLE, "Sample Note");
-        values.put(COLUMN_NOTE_CONTENT, "This is a sample note.");
-        db.insert(TABLE_NOTES, null, values);
-        db.close();
-    }
-
-
+    // Get a single note by its ID
     public Note getNoteById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NOTES, new String[]{COLUMN_NOTE_ID, COLUMN_NOTE_TITLE, COLUMN_NOTE_CONTENT},
@@ -126,6 +120,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+    // Add a new note to the database
     public void addNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -136,6 +132,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Update an existing note
     public void updateNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -145,4 +142,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.update(TABLE_NOTES, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(note.getId())});
         db.close();
     }
+    public void addSampleNotes() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_TITLE, "Sample Note");
+        values.put(COLUMN_NOTE_CONTENT, "This is a sample note.");
+        db.insert(TABLE_NOTES, null, values);
+        db.close();
+    }
+
 }

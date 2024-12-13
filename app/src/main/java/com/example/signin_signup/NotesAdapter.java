@@ -40,9 +40,9 @@ public class NotesAdapter extends ArrayAdapter<Note> {
 
         // Set up the delete button
         btnDelete.setOnClickListener(v -> {
-            dbHelper.deleteNote(note.getId());
-            notesList.remove(position);
-            notifyDataSetChanged(); // Refresh the list
+            dbHelper.deleteNote(note.getId());  // Delete the note from the database
+            notesList.remove(position);  // Remove the note from the list
+            notifyDataSetChanged();  // Notify the adapter to refresh the list
         });
 
         return convertView;

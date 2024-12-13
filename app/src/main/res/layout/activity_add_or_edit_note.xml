@@ -37,4 +37,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
+    <Button
+        android:id="@+id/btnManageNotes"
+        android:layout_width="232dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Manage Notes" />
+    <!-- In activity_add_or_edit_note.xml -->
+
+
+
 </LinearLayout>
