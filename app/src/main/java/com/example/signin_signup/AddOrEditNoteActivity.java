@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,19 +39,23 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
             edtContent.setText(note.getContent());
         } else {
             // New note
-            note = new Note(-1, "", "");
+            note = new Note(-1, "", "");  // Use -1 for new note ID to avoid conflict
         }
 
         btnSave.setOnClickListener(v -> {
             String title = edtTitle.getText().toString();
             String content = edtContent.getText().toString();
 
+            // Check if title or content is empty
+            if (title.isEmpty() || content.isEmpty()) {
+                Toast.makeText(this, "Title or content cannot be empty!", Toast.LENGTH_SHORT).show();
+                return;  // Exit early if either field is empty
+            }
+
             if (note.getId() == -1) {
                 // Adding new note
-                note = new Note(0, title, content);
+                note = new Note(-1, title, content);  // Use -1 for a new note ID
                 dbHelper.addNote(note);
-
-                // Show confirmation alert after saving the note
                 showAlert("Note saved successfully!");
             } else {
                 // Updating existing note
@@ -59,6 +64,10 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
                 dbHelper.updateNote(note);
                 showAlert("Note updated successfully!");
             }
+
+            // Notify the parent activity about the result
+            setResult(RESULT_OK);
+            finish(); // Close the activity and return to the previous one
         });
 
         // Set onClickListener for Back button
@@ -75,16 +84,12 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
             // Create an Intent to navigate to ManageNotesActivity
             Intent manageNotesIntent = new Intent(AddOrEditNoteActivity.this, ManageNotesActivity.class);
 
-            // Optional: Use flags to ensure the activity starts cleanly
-            manageNotesIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            // Optional: Use flags to ensure the activity starts cleanly (remove if not needed)
+            manageNotesIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);  // Clear task stack if needed
 
             // Start the ManageNotesActivity
             startActivity(manageNotesIntent);
         });
-
-
-
-
     }
 
     // Method to show alert

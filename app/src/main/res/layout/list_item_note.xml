@@ -5,43 +5,80 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Container for the title (TextView or EditText) -->
+    <!-- Title container -->
     <LinearLayout
         android:id="@+id/note_title_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- Initially, a TextView can go here to show the note title -->
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp">  <!-- Added padding to separate title from content -->
+
+        <!-- TextView for the note title -->
         <TextView
             android:id="@+id/tvNoteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note Title"
+            android:textSize="18sp"
+            android:textColor="#000000" />  <!-- Added text color for clarity -->
+
+        <!-- EditText for editing the title (hidden until Edit mode) -->
+        <EditText
+            android:id="@+id/etNoteTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note Title" />
+            android:visibility="gone"
+            android:hint="Edit title"
+            android:padding="8dp" />  <!-- Added padding for comfort -->
     </LinearLayout>
 
-    <!-- Container for the content (TextView or EditText) -->
+    <!-- Content container -->
     <LinearLayout
         android:id="@+id/note_content_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- Initially, a TextView can go here to show the note content -->
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp">  <!-- Added padding to separate content from buttons -->
+
+        <!-- TextView for the note content -->
         <TextView
             android:id="@+id/tvNoteContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note Content"
+            android:textSize="16sp"
+            android:textColor="#333333" />  <!-- Added text color for clarity -->
+
+        <!-- EditText for editing the content (hidden until Edit mode) -->
+        <EditText
+            android:id="@+id/etNoteContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note Content" />
+            android:visibility="gone"
+            android:hint="Edit content"
+            android:padding="8dp" />  <!-- Added padding for comfort -->
     </LinearLayout>
 
-    <!-- Button for deleting the note -->
-    <Button
-        android:id="@+id/btnDeleteNote"
+    <!-- Buttons for editing and deleting -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:paddingTop="8dp">  <!-- Added top padding to space out from content -->
 
-    <!-- Button for editing or saving the note -->
-    <Button
-        android:id="@+id/btnEditNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit" />
+        <Button
+            android:id="@+id/btnEditNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginEnd="8dp" />  <!-- Added margin between buttons -->
+
+        <Button
+            android:id="@+id/btnDeleteNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+    </LinearLayout>
+
 </LinearLayout>
