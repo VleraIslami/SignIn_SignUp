@@ -12,13 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class ManageNotesActivity extends AppCompatActivity {
+ public class ManageNotesActivity extends AppCompatActivity {
 
     private ListView notesListView;
     private NotesAdapter notesAdapter;
     private SQLiteHelper dbHelper;
     private List<Note> notesList;
+    private Button btnEditNote;  // Added edit button
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,6 +28,7 @@ public class ManageNotesActivity extends AppCompatActivity {
 
         dbHelper = new SQLiteHelper(this);
         notesListView = findViewById(R.id.notesListView);
+        btnEditNote = findViewById(R.id.btnEditNote);  // Initialize edit button
         notesList = new ArrayList<>();
 
         // Load all notes
@@ -36,16 +37,25 @@ public class ManageNotesActivity extends AppCompatActivity {
         notesAdapter = new NotesAdapter(this, notesList);
         notesListView.setAdapter(notesAdapter);
 
-        // Set up item click listener for editing a note
+        // Set up item click listener for viewing a note
         notesListView.setOnItemClickListener((parent, view, position, id) -> {
             Note selectedNote = notesList.get(position);
+            // You can directly edit from the list item
             Intent intent = new Intent(ManageNotesActivity.this, AddOrEditNoteActivity.class);
             intent.putExtra("noteId", selectedNote.getId());
             startActivityForResult(intent, 1);  // Use startActivityForResult to capture result
         });
 
-        // Set up button to add new note
-
+        // Set up the button to trigger edit functionality
+        btnEditNote.setOnClickListener(v -> {
+            // Logic to edit a note (could open AddOrEditNoteActivity)
+            if (!notesList.isEmpty()) {
+                Note selectedNote = notesList.get(0); // Get the first note or handle differently
+                Intent intent = new Intent(ManageNotesActivity.this, AddOrEditNoteActivity.class);
+                intent.putExtra("noteId", selectedNote.getId());
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
     private void loadNotes() {
@@ -67,7 +77,7 @@ public class ManageNotesActivity extends AppCompatActivity {
             e.printStackTrace();
         } finally {
             if (cursor != null) {
-                cursor.close();  // Make sure the cursor is closed properly
+                cursor.close();  // Ensure cursor is closed properly
             }
         }
     }
@@ -83,3 +93,4 @@ public class ManageNotesActivity extends AppCompatActivity {
         }
     }
 }
+

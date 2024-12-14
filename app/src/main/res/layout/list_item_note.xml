@@ -1,33 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_marginBottom="10dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvNoteTitle"
+    <!-- Container for the title (TextView or EditText) -->
+    <LinearLayout
+        android:id="@+id/note_title_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Note Title"
-        android:textSize="18sp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_height="wrap_content">
+        <!-- Initially, a TextView can go here to show the note title -->
+        <TextView
+            android:id="@+id/tvNoteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note Title" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvNoteContent"
+    <!-- Container for the content (TextView or EditText) -->
+    <LinearLayout
+        android:id="@+id/note_content_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Note Content"
-        android:textSize="16sp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_height="wrap_content">
+        <!-- Initially, a TextView can go here to show the note content -->
+        <TextView
+            android:id="@+id/tvNoteContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note Content" />
+    </LinearLayout>
 
+    <!-- Button for deleting the note -->
     <Button
         android:id="@+id/btnDeleteNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_gravity="end"/>
+        android:text="Delete" />
+
+    <!-- Button for editing or saving the note -->
+    <Button
+        android:id="@+id/btnEditNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit" />
 </LinearLayout>
