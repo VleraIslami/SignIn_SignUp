@@ -26,12 +26,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Button to go to AddOrEditNoteActivity
+
+        /*// Button to go to AddOrEditNoteActivity
         Button btnGoToNote = findViewById(R.id.btnGoToNote);
         btnGoToNote.setOnClickListener(v -> {
             // Navigate to AddOrEditNoteActivity
             Intent noteIntent = new Intent(HomeActivity.this, AddOrEditNoteActivity.class);
             startActivity(noteIntent);
-        });
+        });*/
     }
 }
