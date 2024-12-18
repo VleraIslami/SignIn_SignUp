@@ -21,7 +21,7 @@ public class ManageNotesActivity extends AppCompatActivity {
     private NotesAdapter notesAdapter;
     private SQLiteHelper dbHelper;
     private List<Note> notesList;
-    private Button btnEditNote;  // Added edit button
+   // private Button btnEditNote;  // Added edit button
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -31,7 +31,7 @@ public class ManageNotesActivity extends AppCompatActivity {
 
         dbHelper = new SQLiteHelper(this);
         notesListView = findViewById(R.id.notesListView);
-        btnEditNote = findViewById(R.id.btnEditNote);  // Initialize edit button
+        //btnEditNote = findViewById(R.id.btnEditNote);  // Initialize edit button
         notesList = new ArrayList<>();
 
         // Load all notes
@@ -50,7 +50,7 @@ public class ManageNotesActivity extends AppCompatActivity {
         });
 
         // Set up the button to trigger edit functionality
-        btnEditNote.setOnClickListener(v -> {
+        /*btnEditNote.setOnClickListener(v -> {
             // Check if the list has any items and a note is selected
             int position = notesListView.getCheckedItemPosition();  // Get the selected item position
             if (position != AdapterView.INVALID_POSITION) {  // Check if an item is selected
@@ -61,7 +61,7 @@ public class ManageNotesActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(ManageNotesActivity.this, "Please select a note to edit", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
     }
 

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ManageDataActivity extends AppCompatActivity {
 
     private ListView lvNotes;
-    private Button btnAddNote;
+   // private Button btnAddNote;
     private SQLiteHelper dbHelper;
     private ArrayList<Note> notesList;
     private NotesAdapter adapter;
@@ -27,7 +27,7 @@ public class ManageDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_data);
 
         lvNotes = findViewById(R.id.lvNotes);
-        btnAddNote = findViewById(R.id.btnAddNote);
+        //btnAddNote = findViewById(R.id.btnAddNote);
         dbHelper = new SQLiteHelper(this);
 
         // Add a sample note if database is empty (for testing)
@@ -42,10 +42,10 @@ public class ManageDataActivity extends AppCompatActivity {
         lvNotes.setAdapter(adapter);
 
         // Add new note
-        btnAddNote.setOnClickListener(v -> {
+        /*btnAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(ManageDataActivity.this, AddOrEditNoteActivity.class);
             startActivity(intent);
-        });
+        });*/
     }
 
 

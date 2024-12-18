@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
-
-    <!-- Add Note Button -->
-    <Button
-        android:id="@+id/btnAddNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Note"
-        android:layout_marginBottom="16dp"/>
-
     <!-- Notes ListView -->
     <ListView
         android:id="@+id/notesListView"
@@ -21,4 +12,5 @@
         android:layout_height="match_parent"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"/>
+
 </LinearLayout>
