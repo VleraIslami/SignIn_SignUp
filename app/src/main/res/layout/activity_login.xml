@@ -5,8 +5,6 @@
     android:padding="32dp"
     >
 
-
-
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="0dp"
