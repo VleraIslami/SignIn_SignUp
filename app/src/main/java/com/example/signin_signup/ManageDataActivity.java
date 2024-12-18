@@ -1,5 +1,6 @@
 package com.example.signin_signup;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class ManageDataActivity extends AppCompatActivity {
     private ArrayList<Note> notesList;
     private NotesAdapter adapter;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

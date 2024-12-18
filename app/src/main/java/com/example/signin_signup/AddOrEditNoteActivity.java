@@ -16,6 +16,7 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
     private Button btnSave, btnBack, btnManageNotes;
     private SQLiteHelper dbHelper;
     private Note note;
+    private AlertDialog alertDialog;  // Add a reference to the AlertDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
             note = new Note(-1, "", "");  // Use -1 for new note ID to avoid conflict
         }
 
+
         btnSave.setOnClickListener(v -> {
             String title = edtTitle.getText().toString();
             String content = edtContent.getText().toString();
@@ -66,8 +68,8 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
             }
 
             // Notify the parent activity about the result
-            setResult(RESULT_OK);
-            finish(); // Close the activity and return to the previous one
+            setResult(RESULT_OK);  // Make sure that the parent activity is properly handling this
+            //finish();  // Close the activity and return to the previous one
         });
 
         // Set onClickListener for Back button
@@ -100,6 +102,26 @@ public class AddOrEditNoteActivity extends AppCompatActivity {
                 .setPositiveButton("OK", (dialog, id) -> {
                     // Do nothing here, just close the dialog and keep the activity open
                 });
-        builder.create().show();
+
+        alertDialog = builder.create();  // Store reference to the dialog
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Dismiss the dialog if it's showing when the activity is paused
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Dismiss the dialog when the activity is destroyed
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
     }
 }

@@ -8,11 +8,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
- public class ManageNotesActivity extends AppCompatActivity {
+
+public class ManageNotesActivity extends AppCompatActivity {
 
     private ListView notesListView;
     private NotesAdapter notesAdapter;
@@ -40,7 +43,7 @@ import java.util.List;
         // Set up item click listener for viewing a note
         notesListView.setOnItemClickListener((parent, view, position, id) -> {
             Note selectedNote = notesList.get(position);
-            // You can directly edit from the list item
+            // Open AddOrEditNoteActivity to edit the selected note
             Intent intent = new Intent(ManageNotesActivity.this, AddOrEditNoteActivity.class);
             intent.putExtra("noteId", selectedNote.getId());
             startActivityForResult(intent, 1);  // Use startActivityForResult to capture result
@@ -48,14 +51,18 @@ import java.util.List;
 
         // Set up the button to trigger edit functionality
         btnEditNote.setOnClickListener(v -> {
-            // Logic to edit a note (could open AddOrEditNoteActivity)
-            if (!notesList.isEmpty()) {
-                Note selectedNote = notesList.get(0); // Get the first note or handle differently
+            // Check if the list has any items and a note is selected
+            int position = notesListView.getCheckedItemPosition();  // Get the selected item position
+            if (position != AdapterView.INVALID_POSITION) {  // Check if an item is selected
+                Note selectedNote = notesList.get(position); // Get the selected note
                 Intent intent = new Intent(ManageNotesActivity.this, AddOrEditNoteActivity.class);
                 intent.putExtra("noteId", selectedNote.getId());
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 1);  // Use startActivityForResult to capture result
+            } else {
+                Toast.makeText(ManageNotesActivity.this, "Please select a note to edit", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void loadNotes() {
@@ -93,4 +100,3 @@ import java.util.List;
         }
     }
 }
-

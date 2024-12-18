@@ -13,12 +13,12 @@ import android.widget.Toast;
 import android.app.AlertDialog;
 
 import java.util.List;
-
 public class NotesAdapter extends ArrayAdapter<Note> {
 
     private Context context;
     private List<Note> notesList;
     private SQLiteHelper dbHelper;
+    private AlertDialog alertDialog;  // Declare dialog reference
 
     public NotesAdapter(Context context, List<Note> notesList) {
         super(context, R.layout.list_item_note, notesList);
@@ -63,7 +63,8 @@ public class NotesAdapter extends ArrayAdapter<Note> {
 
         // Set up the delete button with a confirmation dialog
         btnDelete.setOnClickListener(v -> {
-            new AlertDialog.Builder(context)
+            // Create a dialog to confirm deletion
+            alertDialog = new AlertDialog.Builder(context)
                     .setMessage("Are you sure you want to delete this note?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
@@ -72,7 +73,8 @@ public class NotesAdapter extends ArrayAdapter<Note> {
                         notifyDataSetChanged();  // Notify the adapter to refresh the list
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel())
-                    .create().show();
+                    .create();
+            alertDialog.show();  // Show the dialog
         });
 
         // Set up the edit button
@@ -96,8 +98,7 @@ public class NotesAdapter extends ArrayAdapter<Note> {
                 // Set the EditText fields with the current note data
                 etTitle.setText(note.getTitle());
                 etContent.setText(note.getContent());
-
-                btnEdit.setText("Save");  // Change button text to Save
+                btnEdit.setText("Save");
             } else {
                 // When Save is clicked, save the updated note
                 String updatedTitle = etTitle.getText().toString();
@@ -131,7 +132,6 @@ public class NotesAdapter extends ArrayAdapter<Note> {
                 btnEdit.setText("Edit");  // Change button text back to Edit
             }
         });
-
 
         return convertView;
     }
