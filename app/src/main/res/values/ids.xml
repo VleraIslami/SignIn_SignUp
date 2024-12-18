@@ -8,4 +8,5 @@
     <item name="btnSave" type="id" />
     <item name="note_title_container" type="id" />
     <item name="note_content_container" type="id" />
+    <item name="lvNotes" type="id" />
 </resources>
