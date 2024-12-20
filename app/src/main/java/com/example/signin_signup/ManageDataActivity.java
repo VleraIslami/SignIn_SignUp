@@ -1,10 +1,8 @@
 package com.example.signin_signup;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,6 +48,7 @@ public class ManageDataActivity extends AppCompatActivity {
 
 
     // Load notes into the list
+    @SuppressLint("Range")
     private void loadNotes() {
         notesList.clear();
         Cursor cursor = dbHelper.getAllNotes();
@@ -59,7 +58,7 @@ public class ManageDataActivity extends AppCompatActivity {
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                 String content = cursor.getString(cursor.getColumnIndexOrThrow("content"));
 
-                notesList.add(new Note(id, title, content));
+                notesList.add(new Note(id, title, content, cursor.getString(cursor.getColumnIndex(SQLiteHelper.COLUMN_NOTE_STATUS))));
             }
             cursor.close();
         }

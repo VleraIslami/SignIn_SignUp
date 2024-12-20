@@ -1,9 +1,9 @@
     package com.example.signin_signup;
     
     import android.content.Intent;
+    import android.database.Cursor;
     import android.os.Bundle;
     import android.util.Log;
-    import android.view.View;
     import android.widget.EditText;
     import android.widget.Button;
     import android.widget.Toast;
@@ -32,6 +32,7 @@
     
             // Check if we're editing an existing note
             Intent intent = getIntent();
+            Cursor cursor;
             if (intent.hasExtra("noteId")) {
                 // Editing existing note
                 int noteId = intent.getIntExtra("noteId", -1);
@@ -40,10 +41,11 @@
                 edtContent.setText(note.getContent());
             } else {
                 // New note
-                note = new Note(-1, "", "");  // Use -1 for new note ID to avoid conflict
+                note = new Note(-1, "", "", "ON PROGRESS");  // Default status for new notes
             }
-    
-    
+
+
+
             btnSave.setOnClickListener(v -> {
                 String title = edtTitle.getText().toString();
                 String content = edtContent.getText().toString();
@@ -56,7 +58,7 @@
     
                 if (note.getId() == -1) {
                     // Adding new note
-                    note = new Note(-1, title, content);  // Use -1 for a new note ID
+                    note = new Note(-1, title, content, "ON PROGRESS");  // Default status for new notes
                     dbHelper.addNote(note);
                     showAlert("Note saved successfully!");
                 } else {

@@ -1,84 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- Title container -->
-    <LinearLayout
-        android:id="@+id/note_title_container"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="8dp">  <!-- Added padding to separate title from content -->
+        android:padding="16dp">
 
-        <!-- TextView for the note title -->
-        <TextView
-            android:id="@+id/tvNoteTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Note Title"
-            android:textSize="18sp"
-            android:textColor="#000000" />  <!-- Added text color for clarity -->
-
-        <!-- EditText for editing the title (hidden until Edit mode) -->
-        <EditText
-            android:id="@+id/etNoteTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:hint="Edit title"
-            android:padding="8dp" />  <!-- Added padding for comfort -->
-    </LinearLayout>
-
-    <!-- Content container -->
-    <LinearLayout
-        android:id="@+id/note_content_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="8dp">  <!-- Added padding to separate content from buttons -->
-
-        <!-- TextView for the note content -->
-        <TextView
-            android:id="@+id/tvNoteContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Note Content"
-            android:textSize="16sp"
-            android:textColor="#333333" />  <!-- Added text color for clarity -->
-
-        <!-- EditText for editing the content (hidden until Edit mode) -->
-        <EditText
-            android:id="@+id/etNoteContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:hint="Edit content"
-            android:padding="8dp" />  <!-- Added padding for comfort -->
-    </LinearLayout>
-
-    <!-- Buttons for editing and deleting -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:paddingTop="8dp">  <!-- Added top padding to space out from content -->
-
+        <!-- Static Back button at the top of the page -->
         <Button
-            android:id="@+id/btnEditNote"
+            android:id="@+id/btnPreviewNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:layout_marginEnd="8dp" />  <!-- Added margin between buttons -->
+            android:layout_gravity="start"
+            android:layout_marginBottom="16dp"
+            android:text="Back"
+            android:contentDescription="Navigate back to the previous screen" />
 
-        <Button
-            android:id="@+id/btnDeleteNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete" />
+        <!-- Scrollable container for notes -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- Container for dynamically added notes -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Single note template (will be dynamically inflated for each note) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="#f0f0f0"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/tvNoteTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Note Title"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvNoteContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Note Content"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <!-- Hidden EditText fields for editing -->
+                    <EditText
+                        android:id="@+id/etNoteTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter title"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/etNoteContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter content"
+                        android:visibility="gone" />
+
+                    <!-- Buttons to Edit and Delete note -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnEditNote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="Edit"
+                            android:contentDescription="Edit this note" />
+
+                        <Button
+                            android:id="@+id/btnDeleteNote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delete"
+                            android:contentDescription="Delete this note" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnDone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="DONE"
+                            android:contentDescription="Mark this note as DONE" />
+
+                        <Button
+                            android:id="@+id/btnOnProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ON PROGRESS"
+                            android:contentDescription="Mark this note as ON PROGRESS" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
-</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

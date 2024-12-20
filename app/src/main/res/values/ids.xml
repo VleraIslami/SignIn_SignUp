@@ -9,4 +9,8 @@
     <item name="note_title_container" type="id" />
     <item name="note_content_container" type="id" />
     <item name="lvNotes" type="id" />
+    <item name="etNoteTitle" type="id" />
+    <item name="etNoteContent" type="id" />
+    <item name="edtEmmail" type="id" />
+    <item name="btnPreviewNote" type="id" />
 </resources>

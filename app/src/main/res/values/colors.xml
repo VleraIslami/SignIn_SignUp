@@ -15,4 +15,18 @@
 
     <!-- Light Blue color -->
     <color name="light_blue">#ADD8E6</color>
+    <color name="green" />
+
+
+        <!-- Define color for note status -->
+        <color name="note_color">#FF0000</color> <!-- Example: Red color -->
+
+        <!-- Define gray color -->
+        <color name="gray">#808080</color> <!-- Example: Gray color -->
+
+        <!-- Define orange color -->
+        <color name="orange">#FFA500</color> <!-- Example: Orange color -->
+
+
+
 </resources>

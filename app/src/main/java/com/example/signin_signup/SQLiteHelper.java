@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "user_data.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;  // Increased version for upgrade
 
     public static final String TABLE_USERS = "users";  // Table name for users
     public static final String TABLE_NOTES = "notes";  // Table name for notes
@@ -22,6 +22,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NOTE_ID = "note_id";  // Column for note ID
     public static final String COLUMN_NOTE_TITLE = "title";  // Column for note title
     public static final String COLUMN_NOTE_CONTENT = "content";  // Column for note content
+    public static final String COLUMN_NOTE_STATUS = "status";  // Column for note status
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,19 +38,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 COLUMN_USER_PASSWORD + " TEXT)";
         db.execSQL(createUserTableQuery);
 
-        // Create 'notes' table
+        // Create 'notes' table with the 'status' column
         String createNotesTableQuery = "CREATE TABLE " + TABLE_NOTES + " (" +
                 COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOTE_TITLE + " TEXT, " +
-                COLUMN_NOTE_CONTENT + " TEXT)";
+                COLUMN_NOTE_CONTENT + " TEXT, " +
+                COLUMN_NOTE_STATUS + " TEXT DEFAULT 'ON PROGRESS')";
         db.execSQL(createNotesTableQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTES);
-        onCreate(db);
+        if (oldVersion < 2) {
+            // Upgrade the 'notes' table by adding the 'status' column
+            db.execSQL("ALTER TABLE " + TABLE_NOTES + " ADD COLUMN " + COLUMN_NOTE_STATUS + " TEXT DEFAULT 'ON PROGRESS'");
+        }
     }
 
     public boolean isEmailRegistered(String email) {
@@ -101,17 +104,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     // Get a single note by its ID
     public Note getNoteById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NOTES, new String[]{COLUMN_NOTE_ID, COLUMN_NOTE_TITLE, COLUMN_NOTE_CONTENT},
+        Cursor cursor = db.query(TABLE_NOTES, new String[]{COLUMN_NOTE_ID, COLUMN_NOTE_TITLE, COLUMN_NOTE_CONTENT, COLUMN_NOTE_STATUS},
                 COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(id)},
                 null, null, null);
-
 
         if (cursor != null) {
             cursor.moveToFirst();
             @SuppressLint("Range") Note note = new Note(
                     cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_STATUS))  // Add 'status'
             );
             cursor.close();
             db.close();
@@ -128,6 +131,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, note.getTitle());
         values.put(COLUMN_NOTE_CONTENT, note.getContent());
+        values.put(COLUMN_NOTE_STATUS, note.getStatus());  // Add 'status'
 
         db.insert(TABLE_NOTES, null, values);
         db.close();
@@ -139,17 +143,30 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, note.getTitle());
         values.put(COLUMN_NOTE_CONTENT, note.getContent());
+        values.put(COLUMN_NOTE_STATUS, note.getStatus());  // Update 'status'
 
         db.update(TABLE_NOTES, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(note.getId())});
         db.close();
     }
+
+    // Update the status of a note
+    public void updateNoteStatus(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_STATUS, note.getStatus()); // Update the status column
+
+        db.update(TABLE_NOTES, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(note.getId())});
+        db.close();
+    }
+
+    // Add sample notes (for testing purposes)
     public void addSampleNotes() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, "Sample Note");
         values.put(COLUMN_NOTE_CONTENT, "This is a sample note.");
+        values.put(COLUMN_NOTE_STATUS, "ON PROGRESS");  // Add default status
         db.insert(TABLE_NOTES, null, values);
         db.close();
     }
-
 }
