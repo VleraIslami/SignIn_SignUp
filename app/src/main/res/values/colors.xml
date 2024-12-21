@@ -12,6 +12,7 @@
     <!-- Text and background colors -->
     <color name="textColorPrimary">#212121</color>
     <color name="windowBackground">#FFFFFF</color>
+    <color name="transparent_blue">#500000FF</color> <!-- Semi-transparent blue -->
 
     <!-- Light Blue color -->
     <color name="light_blue">#ADD8E6</color>

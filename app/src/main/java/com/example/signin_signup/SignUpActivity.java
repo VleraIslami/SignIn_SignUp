@@ -16,6 +16,8 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnSignUp,btnBack;  // Add the forgot password button
     private SQLiteHelper dbHelper;
 
+    private Button btnForgotPasswordFromSignUp;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,9 @@ public class SignUpActivity extends AppCompatActivity {
             startActivity(intent);  // Start the LoginActivity
             finish();  // Optionally finish the current activity
         });
+
+
+
 
     }
 

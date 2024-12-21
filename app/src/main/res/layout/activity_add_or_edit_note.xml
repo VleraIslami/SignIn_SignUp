@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
-        android:inputType="text" />
+        android:inputType="text"
+        android:layout_marginTop="22dp"
+        />
 
     <EditText
         android:id="@+id/edtContent"
@@ -44,7 +46,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="Manage Notes" />
-    <!-- In activity_add_or_edit_note.xml -->
 
 
 
