@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText edtName, edtEmail, edtPassword;
-    private Button btnSignUp;  // Add the forgot password button
+    private Button btnSignUp,btnBack;  // Add the forgot password button
     private SQLiteHelper dbHelper;
 
     @SuppressLint("MissingInflatedId")
@@ -26,6 +26,8 @@ public class SignUpActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
+        btnBack = findViewById(R.id.btnBack);  // Initialize the back button
+
         dbHelper = new SQLiteHelper(this);
 
         // Handling SignUp button click
@@ -61,7 +63,11 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        // Handling Forgot Password button click to navigate to ForgotPasswordActivity
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+            startActivity(intent);  // Start the LoginActivity
+            finish();  // Optionally finish the current activity
+        });
 
     }
 

@@ -15,18 +15,19 @@
 
     <!-- Light Blue color -->
     <color name="light_blue">#ADD8E6</color>
-    <color name="green" />
 
+    <!-- Green color for buttons -->
+    <color name="green">#4CAF50</color>
 
-        <!-- Define color for note status -->
-        <color name="note_color">#FF0000</color> <!-- Example: Red color -->
+    <!-- Define color for note status -->
+    <color name="note_color">#FF0000</color> <!-- Example: Red color -->
 
-        <!-- Define gray color -->
-        <color name="gray">#808080</color> <!-- Example: Gray color -->
+    <!-- Define gray color -->
+    <color name="gray">#808080</color> <!-- Example: Gray color -->
 
-        <!-- Define orange color -->
-        <color name="orange">#FFA500</color> <!-- Example: Orange color -->
+    <!-- Define orange color -->
+    <color name="orange">#FFA500</color> <!-- Example: Orange color -->
 
-
-
+    <color name="button_done">#4CAF50</color> <!-- Green color for Done button -->
+    <color name="button_in_progress">#9E9E9E</color> <!-- Grey color -->
 </resources>

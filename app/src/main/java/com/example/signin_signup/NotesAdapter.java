@@ -65,17 +65,34 @@ public class NotesAdapter extends ArrayAdapter<Note> {
 
         // Done button logic
         btnDone.setOnClickListener(v -> {
+            // Change the background color of "DONE" button to green
+            btnDone.setBackgroundColor(context.getResources().getColor(R.color.green));
+
+            // Change the background color of "ON PROGRESS" button to grey
+            btnOnProgress.setBackgroundColor(context.getResources().getColor(R.color.gray));
+
+            // Update the note's status to "DONE"
             note.setStatus("DONE");
             dbHelper.updateNoteStatus(note); // Update the note status in the database
+
             notifyDataSetChanged(); // Refresh the list
         });
 
-        // On Progress button logic
+// On Progress button logic
         btnOnProgress.setOnClickListener(v -> {
+            // Change the background color of "ON PROGRESS" button to orange (or your desired color)
+            btnOnProgress.setBackgroundColor(context.getResources().getColor(R.color.orange));
+
+            // Change the background color of "DONE" button to grey
+            btnDone.setBackgroundColor(context.getResources().getColor(R.color.gray));
+
+            // Update the note's status to "ON PROGRESS"
             note.setStatus("ON PROGRESS");
             dbHelper.updateNoteStatus(note); // Update the note status in the database
+
             notifyDataSetChanged(); // Refresh the list
         });
+
 
         // Delete button logic
         btnDelete.setOnClickListener(v -> {

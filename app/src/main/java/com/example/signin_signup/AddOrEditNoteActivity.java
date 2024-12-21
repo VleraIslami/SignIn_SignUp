@@ -32,7 +32,7 @@
     
             // Check if we're editing an existing note
             Intent intent = getIntent();
-            Cursor cursor;
+            //Cursor cursor;
             if (intent.hasExtra("noteId")) {
                 // Editing existing note
                 int noteId = intent.getIntExtra("noteId", -1);
@@ -76,10 +76,14 @@
     
             // Set onClickListener for Back button
             btnBack.setOnClickListener(v -> {
-                // Navigate back to the previous activity
-                finish(); // Close the current activity and return to the previous one in the stack
+                // Create an Intent to navigate to LoginSuccessActivity
+                Intent loginIntent = new Intent(AddOrEditNoteActivity.this, LoginSuccessActivity.class);
+                startActivity(loginIntent); // Start the LoginSuccessActivity
+                finish(); // Optionally, finish the current activity if you don't want it in the back stack
             });
-    
+
+
+
             // Set onClickListener for Manage Notes button
             btnManageNotes.setOnClickListener(v -> {
                 // Log to verify if this part is being reached
