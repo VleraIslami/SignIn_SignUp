@@ -13,4 +13,5 @@
     <item name="etNoteContent" type="id" />
     <item name="edtEmmail" type="id" />
     <item name="btnPreviewNote" type="id" />
+    <item name="tvResetPassword" type="id" />
 </resources>
