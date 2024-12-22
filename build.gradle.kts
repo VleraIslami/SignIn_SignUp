@@ -10,10 +10,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        //maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
-        classpath ("com.google.gms:google-services:4.3.15")
-
+        classpath("com.google.gms:google-services:4.4.2")
     }
 }
