@@ -3,50 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal">
 
+    <!-- Title EditText -->
     <EditText
         android:id="@+id/edtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
         android:inputType="text"
+        android:textColorHint="@color/editTextHintColor"
+        android:background="@color/editTextBackgroundColor"
         android:layout_marginTop="22dp"
-        />
+        android:padding="12dp" />
 
+    <!-- Content EditText -->
     <EditText
         android:id="@+id/edtContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Content"
         android:inputType="textMultiLine"
-        android:minHeight="200dp" />
+        android:minHeight="200dp"
+        android:textColorHint="@color/editTextHintColor"
+        android:background="@color/editTextBackgroundColor"
+        android:layout_marginTop="16dp"
+        android:padding="12dp" />
 
-
+    <!-- Save Button -->
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/buttonTextColor"
+        android:backgroundTint="@color/buttonBackgroundColor"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp" />
 
-    <!-- Back button -->
+    <!-- Back Button -->
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:textColor="@color/buttonTextColor"
+        android:backgroundTint="@color/button_in_progress"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp" />
 
+    <!-- Manage Notes Button -->
     <Button
         android:id="@+id/btnManageNotes"
         android:layout_width="232dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:text="Manage Notes"
+        android:textColor="@color/buttonTextColor"
+        android:backgroundTint="@color/secondaryColor"
         android:layout_marginTop="16dp"
-        android:text="Manage Notes" />
-
-
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp" />
 
 </LinearLayout>

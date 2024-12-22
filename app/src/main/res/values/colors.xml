@@ -35,4 +35,12 @@
 
     <color name="button_done">#4CAF50</color> <!-- Green color for Done button -->
     <color name="button_in_progress">#9E9E9E</color> <!-- Grey color -->
+
+
+    <color name="primaryColor">#6200EE</color> <!-- Example primary color -->
+    <color name="secondaryColor">#03DAC5</color> <!-- Example secondary color -->
+    <color name="buttonTextColor">#FFFFFF</color> <!-- Button text color -->
+    <color name="editTextHintColor">#9E9E9E</color> <!-- EditText hint color -->
+    <color name="editTextBackgroundColor">#F5F5F5</color> <!-- EditText background color -->
+    <color name="buttonBackgroundColor">#6200EE</color> <!-- Button background color -->
 </resources>
