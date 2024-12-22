@@ -1,62 +1,60 @@
-<resources>
-    <!-- Primary colors -->
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryVariant">#3700B3</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
+    <resources>
+        <!-- Primary colors -->
+        <color name="colorPrimary">#6200EE</color>
+        <color name="colorPrimaryVariant">#3700B3</color>
+        <color name="colorOnPrimary">#FFFFFF</color>
 
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="yellow">#FFEB3B</color>
+        <color name="white">#FFFFFF</color>
+        <color name="black">#000000</color>
+        <color name="yellow">#FFEB3B</color>
 
-    <!-- Secondary colors -->
-    <color name="colorSecondary">#03DAC6</color>
-    <color name="colorSecondaryVariant">#018786</color>
-    <color name="colorOnSecondary">#000000</color>
+        <!-- Secondary colors -->
+        <color name="colorSecondary">#03DAC6</color>
+        <color name="colorSecondaryVariant">#018786</color>
+        <color name="colorOnSecondary">#000000</color>
 
-    <!-- Text and background colors -->
-    <color name="textColorPrimary">#212121</color>
-    <color name="windowBackground">#FFFFFF</color>
-    <color name="transparent_blue">#500000FF</color> <!-- Semi-transparent blue -->
+        <!-- Text and background colors -->
+        <color name="textColorPrimary">#212121</color>
+        <color name="windowBackground">#FFFFFF</color>
+        <color name="transparent_blue">#500000FF</color> <!-- Semi-transparent blue -->
 
-    <!-- Light Blue color -->
-    <color name="light_blue">#ADD8E6</color>
+        <!-- Light Blue color -->
+        <color name="light_blue">#ADD8E6</color>
 
-    <!-- Green color for buttons -->
-    <color name="green">#4CAF50</color>
+        <!-- Green color for buttons -->
+        <color name="green">#4CAF50</color>
 
-    <!-- Define color for note status -->
-    <color name="note_color">#FF0000</color> <!-- Example: Red color -->
+        <!-- Define color for note status -->
+        <color name="note_color">#FF0000</color> <!-- Example: Red color -->
 
-    <!-- Define gray color -->
-    <color name="gray">#808080</color> <!-- Example: Gray color -->
+        <!-- Define gray color -->
+        <color name="gray">#808080</color> <!-- Example: Gray color -->
 
-    <!-- Define orange color -->
-    <color name="orange">#FFA500</color> <!-- Example: Orange color -->
+        <!-- Define orange color -->
+        <color name="orange">#FFA500</color> <!-- Example: Orange color -->
 
-    <color name="button_done">#4CAF50</color> <!-- Green color for Done button -->
-    <color name="button_in_progress">#9E9E9E</color> <!-- Grey color -->
-
-
-    <color name="primaryColor">#6200EE</color> <!-- Example primary color -->
-    <color name="secondaryColor">#03DAC5</color> <!-- Example secondary color -->
-    <color name="buttonTextColor">#FFFFFF</color> <!-- Button text color -->
-    <color name="editTextHintColor">#48F0F0F0</color> <!-- EditText hint color -->
-    <color name="editTextBackgroundColor">#F5F5F5</color> <!-- EditText background color -->
-    <color name="buttonBackgroundColor">#FF36C0</color> <!-- Button background color -->
+        <color name="button_done">#4CAF50</color> <!-- Green color for Done button -->
+        <color name="button_in_progress">#9E9E9E</color> <!-- Grey color -->
 
 
-
-
-    <color name="colorTextPrimary">#212121</color>
-    <color name="textInputHintColor">#9E9E9E</color>
-    <color name="editTextBackground">#F5F5F5</color>
-    <color name="linkTextColor">#1E88E5</color>
-    <color name="resetTextColor">#FF1744</color>
-
-    <color name="button_disabled">#BDBDBD</color> <!-- Disabled button color -->
-    <color name="button_pressed">#3700B3</color> <!-- Pressed button color (could be darker shade of primary) -->
-    <color name="statusBarColor">#3700B3</color> <!-- Darker shade of primary color -->
+        <color name="primaryColor">#6200EE</color> <!-- Example primary color -->
+        <color name="secondaryColor">#03DAC5</color> <!-- Example secondary color -->
+        <color name="buttonTextColor">#FFFFFF</color> <!-- Button text color -->
+        <color name="editTextHintColor">#48F0F0F0</color> <!-- EditText hint color -->
+        <color name="editTextBackgroundColor">#F5F5F5</color> <!-- EditText background color -->
+        <color name="buttonBackgroundColor">#FF36C0</color> <!-- Button background color -->
 
 
 
-</resources>
+      <color name="statusBarColor">#C72095</color>
+        <color name="colorTextPrimary">#212121</color>
+        <color name="textInputHintColor">#9E9E9E</color>
+        <color name="editTextBackground">#F5F5F5</color>
+        <color name="linkTextColor">#1E88E5</color>
+        <color name="resetTextColor">#FF1744</color>
+
+        <color name="button_disabled">#BDBDBD</color> <!-- Disabled button color -->
+
+
+
+    </resources>
