@@ -40,7 +40,23 @@
     <color name="primaryColor">#6200EE</color> <!-- Example primary color -->
     <color name="secondaryColor">#03DAC5</color> <!-- Example secondary color -->
     <color name="buttonTextColor">#FFFFFF</color> <!-- Button text color -->
-    <color name="editTextHintColor">#9E9E9E</color> <!-- EditText hint color -->
+    <color name="editTextHintColor">#48F0F0F0</color> <!-- EditText hint color -->
     <color name="editTextBackgroundColor">#F5F5F5</color> <!-- EditText background color -->
-    <color name="buttonBackgroundColor">#6200EE</color> <!-- Button background color -->
+    <color name="buttonBackgroundColor">#FF36C0</color> <!-- Button background color -->
+
+
+
+
+    <color name="colorTextPrimary">#212121</color>
+    <color name="textInputHintColor">#9E9E9E</color>
+    <color name="editTextBackground">#F5F5F5</color>
+    <color name="linkTextColor">#1E88E5</color>
+    <color name="resetTextColor">#FF1744</color>
+
+    <color name="button_disabled">#BDBDBD</color> <!-- Disabled button color -->
+    <color name="button_pressed">#3700B3</color> <!-- Pressed button color (could be darker shade of primary) -->
+    <color name="statusBarColor">#3700B3</color> <!-- Darker shade of primary color -->
+
+
+
 </resources>
