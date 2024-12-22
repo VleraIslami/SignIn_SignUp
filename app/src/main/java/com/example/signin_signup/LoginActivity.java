@@ -3,6 +3,7 @@ package com.example.signin_signup;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtEmail, edtPassword;
-    private Button btnLogin;
+    private Button btnLogin,btnForgotPassword;
     private TextView tvSignUp, tvForgotPassword;
     private FirebaseAuth mAuth;
 
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvSignUp = findViewById(R.id.tvSignUp);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);  // Initialize the button
 
         // Apply animation to the login button
         Animation buttonClick = AnimationUtils.loadAnimation(this, R.anim.button_click);
@@ -55,18 +57,28 @@ public class LoginActivity extends AppCompatActivity {
         // Forgot Password functionality
         tvForgotPassword.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
+
+            // Check if the email field is empty
             if (email.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                return;
+                return; // Prevent proceeding if email is empty
             }
 
+            // Check if the email entered is valid
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(LoginActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-                return;
+                return; // Prevent proceeding if email is invalid
             }
 
+            // Call function to send password reset link
             sendPasswordResetLink(email);
         });
+
+        btnForgotPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void performLogin() {
@@ -101,13 +113,18 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    // Send password reset link using Firebase's sendSignInLinkToEmail method
+
+
     private void sendPasswordResetLink(String email) {
+
+
         // Configure the ActionCodeSettings with your Firebase Hosting domain
         ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
-                .setUrl("https://signupsignin-306bf.web.app") // Use the Firebase Hosting domain as the URL
+                .setUrl("https://signupsignin-306bf.web.app/__/auth/action")
                 .setHandleCodeInApp(true)
+                //.setDynamicLinkDomain("https://signupsignin-306bf.web.app/reset")
                 .build();
+
 
         mAuth.sendSignInLinkToEmail(email, actionCodeSettings)
                 .addOnCompleteListener(task -> {
@@ -121,4 +138,5 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
