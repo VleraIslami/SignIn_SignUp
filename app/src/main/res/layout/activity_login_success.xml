@@ -47,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Go to Login page"
+                android:textSize="16dp"
                 android:backgroundTint="#6200EE"
                 android:textColor="@android:color/white"
                 android:layout_marginBottom="12dp"
@@ -58,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Go to Sign Up page"
+                android:textSize="16dp"
                 android:backgroundTint="#03DAC5"
                 android:textColor="@android:color/white"
                 android:layout_marginBottom="12dp"
@@ -69,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Go to Add/Edit Note"
+                android:textSize="16dp"
                 android:backgroundTint="#FF5722"
                 android:textColor="@android:color/white"
                 android:elevation="2dp" />
