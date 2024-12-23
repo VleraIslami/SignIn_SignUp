@@ -14,4 +14,5 @@
     <item name="edtEmmail" type="id" />
     <item name="btnPreviewNote" type="id" />
     <item name="tvResetPassword" type="id" />
+    <item name="edtForgotPasswordEmail" type="id" />
 </resources>
