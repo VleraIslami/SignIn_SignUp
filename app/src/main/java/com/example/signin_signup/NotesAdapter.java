@@ -52,14 +52,22 @@ public class NotesAdapter extends ArrayAdapter<Note> {
         Button btnDone = convertView.findViewById(R.id.btnDone);
         Button btnOnProgress = convertView.findViewById(R.id.btnOnProgress);
 
+        // Display title and content in TextViews
+        tvTitle.setText(note.getTitle());
+        tvContent.setText(note.getContent());
+
+        // Set EditText fields to be initially hidden
+        etTitle.setVisibility(View.GONE);
+        etContent.setVisibility(View.GONE);
+
+
+
         // Set the status buttons based on the current status
         if ("DONE".equals(note.getStatus())) {
-            // For newer Android versions (post Marshmallow), use ContextCompat.getColor
-            int color = ContextCompat.getColor(context, R.color.note_color);
-            btnOnProgress.setBackgroundColor(ContextCompat.getColor(context, R.color.gray)); // Example color for ON PROGRESS
+            btnOnProgress.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
         } else {
-            btnDone.setBackgroundColor(ContextCompat.getColor(context, R.color.gray)); // Example color for DONE
-            btnOnProgress.setBackgroundColor(ContextCompat.getColor(context, R.color.orange)); // Example color for ON PROGRESS
+            btnDone.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+            btnOnProgress.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
         }
 
 
@@ -112,6 +120,7 @@ public class NotesAdapter extends ArrayAdapter<Note> {
         // Edit button logic
         btnEdit.setOnClickListener(v -> {
             if (btnEdit.getText().toString().equals("Edit")) {
+
                 tvTitle.setVisibility(View.GONE);
                 tvContent.setVisibility(View.GONE);
                 etTitle.setVisibility(View.VISIBLE);

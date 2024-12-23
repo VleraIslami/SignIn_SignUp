@@ -52,7 +52,6 @@ public class ManageNotesActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void loadNotes() {

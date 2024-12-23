@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#233680FF">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -20,7 +20,7 @@
             android:layout_marginBottom="16dp"
             android:text="Back"
             android:contentDescription="Navigate back to the previous screen"
-            android:backgroundTint="#3680FF"/>
+            android:backgroundTint="#3680FF" />
 
         <!-- Scrollable container for notes -->
         <ScrollView
@@ -39,31 +39,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-
                     android:orientation="vertical"
                     android:padding="8dp"
-                    android:background="#1E0028FF"
-                    >
+                    android:background="#1E0028FF">
 
+                    <!-- TextView for displaying the title -->
                     <TextView
                         android:id="@+id/tvNoteTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Note Title"
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
+                    <!-- TextView for displaying the content -->
                     <TextView
                         android:id="@+id/tvNoteContent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Note Content"
-                        android:textColor="#333333"
+                        android:textColor="#3C0202"
                         android:textSize="16sp" />
 
-                    <!-- Hidden EditText fields for editing -->
+                    <!-- EditText fields for editing, initially hidden -->
                     <EditText
                         android:id="@+id/etNoteTitle"
                         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                         android:hint="Enter content"
                         android:visibility="gone" />
 
-                    <!-- Buttons to Edit and Delete note -->
+                    <!-- Buttons for Edit and Delete note -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                             android:layout_marginEnd="8dp"
                             android:text="Edit"
                             android:contentDescription="Edit this note"
-                            android:backgroundTint="#DEB346"/>
+                            android:backgroundTint="#DEB346" />
 
                         <Button
                             android:id="@+id/btnDeleteNote"
@@ -101,9 +101,10 @@
                             android:layout_height="wrap_content"
                             android:text="Delete"
                             android:contentDescription="Delete this note"
-                            android:backgroundTint="#FF364D"/>
+                            android:backgroundTint="#FF364D" />
                     </LinearLayout>
 
+                    <!-- Buttons for note status -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,12 +128,7 @@
                             android:contentDescription="Mark this note as ON PROGRESS" />
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
