@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="WELCOME OUR NEW MEMBER"
         android:textSize="35sp"
+        android:textStyle="italic"
         android:layout_marginTop="32dp"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
