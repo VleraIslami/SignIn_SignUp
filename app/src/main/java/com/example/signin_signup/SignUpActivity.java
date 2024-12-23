@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -64,11 +66,19 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error signing up. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
+        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 
         btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-            startActivity(intent);  // Start the LoginActivity
-            finish();  // Optionally finish the current activity
+            // Start the fade-out animation
+            v.startAnimation(fadeOut);
+
+            // Delay navigation until the animation ends
+            v.postDelayed(() -> {
+                // Start the LoginActivity
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();  // Optionally finish the current activity
+            }, fadeOut.getDuration());
         });
 
 
