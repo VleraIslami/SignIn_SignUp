@@ -43,10 +43,13 @@
         <color name="editTextHintColor">#48F0F0F0</color> <!-- EditText hint color -->
         <color name="editTextBackgroundColor">#F5F5F5</color> <!-- EditText background color -->
         <color name="buttonBackgroundColor">#FF36C0</color> <!-- Button background color -->
-<color name="pink">#FF369E</color>
 
+        <color name="pink">#FF369E</color>
+        <color name="blushPink">#EEFF60B4</color>
+        <color name="blueLightSky">#2995FA</color>
+        <color name="blueLightSkyBackground">#1A2995FA</color>
 
-      <color name="statusBarColor">#C72095</color>
+        <color name="statusBarColor">#C72095</color>
         <color name="colorTextPrimary">#212121</color>
         <color name="textInputHintColor">#9E9E9E</color>
         <color name="editTextBackground">#F5F5F5</color>
