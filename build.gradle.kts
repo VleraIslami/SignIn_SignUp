@@ -2,7 +2,7 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     kotlin("kapt") version "1.8.20" apply false
-    id("com.google.gms.google-services") version "4.4.2" apply false
+   // id("com.google.gms.google-services") version "4.4.2" apply false
 
 }
 
@@ -14,6 +14,6 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
-        classpath("com.google.gms:google-services:4.4.2")
+        classpath ("com.google.gms:google-services:4.3.15")  // Use the latest version
     }
 }

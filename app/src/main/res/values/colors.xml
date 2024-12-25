@@ -56,7 +56,9 @@
         <color name="linkTextColor">#1E88E5</color>
         <color name="resetTextColor">#FF1744</color>
 
-        <color name="button_disabled">#BDBDBD</color> <!-- Disabled button color -->
+        <color name="button_disabled">#BDBDBD</color>
+        <color name="my_primary" />
+            <color name="light_gray" /> <!-- Disabled button color -->
 
 
 

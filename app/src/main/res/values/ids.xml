@@ -15,4 +15,5 @@
     <item name="btnPreviewNote" type="id" />
     <item name="tvResetPassword" type="id" />
     <item name="edtForgotPasswordEmail" type="id" />
+    <item name="checkboxShowPassword" type="id" />
 </resources>

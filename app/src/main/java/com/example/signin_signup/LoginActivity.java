@@ -3,11 +3,13 @@ package com.example.signin_signup;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtEmail, edtPassword;
-    private Button btnLogin,btnForgotPassword;
+    private Button btnLogin, btnForgotPassword;
     private TextView tvSignUp, tvForgotPassword;
+    private CheckBox checkboxShowPassword;
+
     private FirebaseAuth mAuth;
 
     @SuppressLint("MissingInflatedId")
@@ -39,12 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvSignUp = findViewById(R.id.tvSignUp);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
-        btnForgotPassword = findViewById(R.id.btnForgotPassword);  // Initialize the button
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);
+        checkboxShowPassword = findViewById(R.id.checkboxShowPassword);
 
         // Apply animation to the login button
         Animation buttonClick = AnimationUtils.loadAnimation(this, R.anim.button_click);
         btnLogin.setOnClickListener(v -> {
-            v.startAnimation(buttonClick);  // Apply animation on button click
+            v.startAnimation(buttonClick);
             performLogin();
         });
 
@@ -78,6 +83,17 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         });
+        checkboxShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Show password
+                edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                // Hide password
+                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            // Keep cursor at the end of the text
+            edtPassword.setSelection(edtPassword.length());
+        });
 
     }
 
@@ -95,14 +111,17 @@ public class LoginActivity extends AppCompatActivity {
             edtEmail.setError("Invalid email address");
             return;
         }
-
-        mAuth.signInWithEmailAndPassword(email, password)
+       mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign-in successful
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        // Navigate to LoginSuccessActivity after successful login
+
+                        // Navigate to OtpVerificationActivity after successful login
                         Intent intent = new Intent(LoginActivity.this, LoginSuccessActivity.class);
+                       //fishje komentin nalt kur ebon opt //Intent intent = new Intent(LoginActivity.this, optActivity.class);
+                       // intent.putExtra("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        //intent.putExtra("phoneNumber", "+38344589575"); // Passing the phone number for OTP verification
                         startActivity(intent);
                         finish();  // Close the LoginActivity
                     } else {
@@ -111,20 +130,15 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
-
-
     private void sendPasswordResetLink(String email) {
-
-
         // Configure the ActionCodeSettings with your Firebase Hosting domain
         ActionCodeSettings actionCodeSettings = ActionCodeSettings.newBuilder()
                 .setUrl("https://signupsignin-306bf.web.app/__/auth/action")
                 .setHandleCodeInApp(true)
-                //.setDynamicLinkDomain("https://signupsignin-306bf.web.app/reset")
                 .build();
-
 
         mAuth.sendSignInLinkToEmail(email, actionCodeSettings)
                 .addOnCompleteListener(task -> {
