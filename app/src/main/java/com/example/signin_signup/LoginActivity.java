@@ -18,6 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -83,18 +88,16 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         });
+
+        // Show/hide password logic
         checkboxShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                // Show password
                 edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
             } else {
-                // Hide password
                 edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             }
-            // Keep cursor at the end of the text
             edtPassword.setSelection(edtPassword.length());
         });
-
     }
 
     private void performLogin() {
@@ -111,26 +114,74 @@ public class LoginActivity extends AppCompatActivity {
             edtEmail.setError("Invalid email address");
             return;
         }
-       mAuth.signInWithEmailAndPassword(email, password)
+
+        // Sign in with Firebase Authentication
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign-in successful
+                        // Login successful
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                        // Navigate to OtpVerificationActivity after successful login
-                        Intent intent = new Intent(LoginActivity.this, LoginSuccessActivity.class);
-                       //fishje komentin nalt kur ebon opt //Intent intent = new Intent(LoginActivity.this, optActivity.class);
-                       // intent.putExtra("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        //intent.putExtra("phoneNumber", "+38344589575"); // Passing the phone number for OTP verification
+                        // Trigger 2FA code sending after login
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        send2FACode(userId, email);
+
+                        // Navigate to the verification activity
+                        Intent intent = new Intent(LoginActivity.this, Verify2FACodeActivity.class);
+                        intent.putExtra("userId", userId);
+                        intent.putExtra("email", email);  // Pass email for code verification
                         startActivity(intent);
-                        finish();  // Close the LoginActivity
+                        finish();
                     } else {
                         // Sign-in failed
                         String error = task.getException() != null ? task.getException().getMessage() : "Login failed";
                         Toast.makeText(LoginActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
 
+    private void send2FACode(String userId, String email) {
+        // Generate a random 2FA code
+        String code = generate2FACode();
+
+        // Send the code via email using Firebase Functions or an SMTP server
+        String subject = "Your 2FA Code";
+        String message = "Your 2FA code is: " + code;
+
+        // Call a method to send email (replace with your email-sending logic)
+        sendEmail(email, subject, message);
+
+        // Store the 2FA code in Firebase for verification in the next step
+        store2FACode(userId, code);
+    }
+
+    private String generate2FACode() {
+        Random rand = new Random();
+        int code = rand.nextInt(999999);  // Generate a random 6-digit code
+        return String.format("%06d", code); // Format to 6 digits
+    }
+
+    private void sendEmail(String email, String subject, String message) {
+        // Use Firebase Cloud Functions or any email service (e.g., SendGrid) to send the email
+        // For simplicity, assume it's handled via your backend.
+        Log.d("2FA", "Sending 2FA code to: " + email);
+    }
+
+    private void store2FACode(String userId, String code) {
+        // Store the generated 2FA code in Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> data = new HashMap<>();
+        data.put("code", code);  // Store the generated 2FA code
+        data.put("userId", userId);  // Store the user ID
+
+        // Write to Firestore
+        db.collection("twoFactorCodes").document(userId).set(data)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firestore", "2FA code successfully written to Firestore for userId: " + userId);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error writing 2FA code to Firestore", e);
+                });
     }
 
     private void sendPasswordResetLink(String email) {
@@ -152,5 +203,4 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

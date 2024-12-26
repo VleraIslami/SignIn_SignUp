@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter the 2FA Code"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/black"/>
+
+    <!-- EditText for 2FA Code -->
+    <EditText
+        android:id="@+id/edt2FACode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+        android:hint="Enter 2FA Code"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- ProgressBar (visibility can be toggled in the code) -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Button to verify 2FA Code -->
+    <Button
+        android:id="@+id/btnVerifyCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify Code"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        android:padding="12dp"/>
+
+</LinearLayout>
