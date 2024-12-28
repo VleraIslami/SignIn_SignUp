@@ -68,4 +68,10 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
 
+        implementation ("com.sun.mail:android-mail:1.6.2")
+        implementation ("com.sun.mail:android-activation:1.6.2")
+
+
+
+
 }

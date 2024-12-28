@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                         // Navigate to the verification activity
                         Intent intent = new Intent(LoginActivity.this, Verify2FACodeActivity.class);
                         intent.putExtra("userId", userId);
-                        intent.putExtra("email", email);  // Pass email for code verification
+                        intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     } else {
@@ -141,19 +141,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void send2FACode(String userId, String email) {
-        // Generate a random 2FA code
+        // Validate the email before proceeding
+        if (email == null || email.trim().isEmpty()) {
+            Log.e("send2FACode", "Email is invalid or empty.");
+            return;
+        }
+
         String code = generate2FACode();
-
-        // Send the code via email using Firebase Functions or an SMTP server
-        String subject = "Your 2FA Code";
-        String message = "Your 2FA code is: " + code;
-
-        // Call a method to send email (replace with your email-sending logic)
-        sendEmail(email, subject, message);
-
-        // Store the 2FA code in Firebase for verification in the next step
         store2FACode(userId, code);
+
+        String subject = "Your 2FA Code";
+        String body = "Your 2FA code is: " + code;
+
+        // Send the email only if email is valid
+        EmailSender.sendEmail(getApplicationContext(), email, subject, body);
     }
+
+
+
 
     private String generate2FACode() {
         Random rand = new Random();
