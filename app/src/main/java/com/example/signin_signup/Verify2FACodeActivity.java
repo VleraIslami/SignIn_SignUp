@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseAuth;
-
 public class Verify2FACodeActivity extends AppCompatActivity {
 
     private EditText edt2FACode;
@@ -23,6 +22,7 @@ public class Verify2FACodeActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private String userId;
     private String stored2FACode;
+    private long stored2FACodeTimestamp; // Declare this variable to store the timestamp
     private ProgressBar progressBar;
 
     @SuppressLint("MissingInflatedId")
@@ -52,15 +52,27 @@ public class Verify2FACodeActivity extends AppCompatActivity {
     }
 
     private void fetchStored2FACode() {
-        // Fetch the 2FA code from Firestore for the given user ID
+        // Fetch the 2FA code and timestamp from Firestore for the given user ID
         db.collection("twoFactorCodes").document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     progressBar.setVisibility(View.GONE); // Hide loading spinner
 
                     if (documentSnapshot.exists()) {
-                        // Retrieve the code from the document
+                        // Retrieve the code and timestamp from the document
                         stored2FACode = documentSnapshot.getString("code");
+                        Long timestampObj = documentSnapshot.getLong("timestamp"); // Retrieve as Long object
+
+                        if (timestampObj == null) {
+                            // Handle the missing timestamp
+                            Log.e("Firestore", "Timestamp is missing in the document");
+                            Toast.makeText(Verify2FACodeActivity.this, "Error: Timestamp missing in Firestore.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // If timestamp is not null, assign it to the primitive variable
+                        stored2FACodeTimestamp = timestampObj;
+
                         Log.d("Firestore", "Fetched 2FA code: " + stored2FACode);
 
                         // Enable the verify button after fetching the code
@@ -76,12 +88,25 @@ public class Verify2FACodeActivity extends AppCompatActivity {
                 });
     }
 
+
+
     private void verify2FACode() {
         // Get the entered code from the user
         String enteredCode = edt2FACode.getText().toString().trim();
 
         if (TextUtils.isEmpty(enteredCode)) {
             edt2FACode.setError("Please enter the 2FA code");
+            return;
+        }
+
+        // Get the current time
+        long currentTime = System.currentTimeMillis();
+        // Set the expiration time (e.g., 5 minutes = 5 * 60 * 1000 milliseconds)
+        long expirationTime = 5 * 60 * 1000;
+
+        // Check if the code has expired
+        if (currentTime - stored2FACodeTimestamp > expirationTime) {
+            Toast.makeText(Verify2FACodeActivity.this, "2FA code has expired. Please request a new code.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -94,7 +119,7 @@ public class Verify2FACodeActivity extends AppCompatActivity {
             delete2FACodeFromFirestore();
 
             // Proceed to the main activity
-            Intent intent = new Intent(Verify2FACodeActivity.this, MainActivity.class);
+            Intent intent = new Intent(Verify2FACodeActivity.this, LoginSuccessActivity.class);
             startActivity(intent);
             finish();
         } else {

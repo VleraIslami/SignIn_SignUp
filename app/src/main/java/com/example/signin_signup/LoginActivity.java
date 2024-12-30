@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.functions.FirebaseFunctions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin, btnForgotPassword;
     private TextView tvSignUp, tvForgotPassword;
     private CheckBox checkboxShowPassword;
+    private FirebaseFunctions mFunctions;
+
 
     private FirebaseAuth mAuth;
 
@@ -50,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
         btnForgotPassword = findViewById(R.id.btnForgotPassword);
         checkboxShowPassword = findViewById(R.id.checkboxShowPassword);
+        mFunctions = FirebaseFunctions.getInstance();
+
 
         // Apply animation to the login button
         Animation buttonClick = AnimationUtils.loadAnimation(this, R.anim.button_click);
@@ -147,15 +152,27 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Generate the 2FA code
         String code = generate2FACode();
         store2FACode(userId, code);
 
-        String subject = "Your 2FA Code";
-        String body = "Your 2FA code is: " + code;
+        // Call Firebase Cloud Function to send the 2FA code via email
+        Map<String, Object> data = new HashMap<>();
+        data.put("email", email);
+        data.put("code", code);
 
-        // Send the email only if email is valid
-        EmailSender.sendEmail(getApplicationContext(), email, subject, body);
+        mFunctions.getHttpsCallable("send2FACodeEmail")
+                .call(data)
+                .addOnSuccessListener(result -> {
+                    Log.d("FirebaseFunctions", "2FA code sent successfully.");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirebaseFunctions", "Error sending 2FA code", e);
+                    Toast.makeText(LoginActivity.this, "Error sending 2FA code", Toast.LENGTH_SHORT).show();
+                });
     }
+
+
 
 
 
@@ -166,11 +183,7 @@ public class LoginActivity extends AppCompatActivity {
         return String.format("%06d", code); // Format to 6 digits
     }
 
-    private void sendEmail(String email, String subject, String message) {
-        // Use Firebase Cloud Functions or any email service (e.g., SendGrid) to send the email
-        // For simplicity, assume it's handled via your backend.
-        Log.d("2FA", "Sending 2FA code to: " + email);
-    }
+
 
     private void store2FACode(String userId, String code) {
         // Store the generated 2FA code in Firestore
@@ -178,6 +191,7 @@ public class LoginActivity extends AppCompatActivity {
         Map<String, Object> data = new HashMap<>();
         data.put("code", code);  // Store the generated 2FA code
         data.put("userId", userId);  // Store the user ID
+        data.put("timestamp", System.currentTimeMillis());  // Store the current timestamp in milliseconds
 
         // Write to Firestore
         db.collection("twoFactorCodes").document(userId).set(data)
@@ -209,3 +223,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 }
+
+
+
