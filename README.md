@@ -32,14 +32,15 @@ The Notes Manager app combines user authentication with a feature-rich notes man
 • **OneTimeWorkRequest**: Schedules specific tasks.<br>
 • **TimeSetReceiver**: Monitors and handles time-related events.<br>
 
+
+### Data Storage
+• **SQLiteHelper**: Manages local database storage.<br>
+• **PasswordManager**: Stores and retrieves encrypted passwords.<br>
+
 ## Contributors  
 - [@VleraIslami](https://github.com/VleraIslami) - Vlera Islami  
 - [@Adriansopii](https://github.com/Adriansopii) - Adrian Sopi  
 - [@VleraLuma](https://github.com/VleraLuma) - Vlera Luma  
 - [@vesax](https://github.com/vesax) - Vesa Zhitia  
-
-### Data Storage
-• **SQLiteHelper**: Manages local database storage.<br>
-• **PasswordManager**: Stores and retrieves encrypted passwords.<br>
 
 
